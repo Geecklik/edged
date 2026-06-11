@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(open *)",
+      "Bash(unzip *)",
+      "Bash(sips -Z 600 -s format jpeg -s formatOptions 82 /Users/pierreboucaud/Edged/assets/pierre.png --out /Users/pierreboucaud/Edged/assets/pierre.jpg)",
+      "Bash(sips -Z 160 -s format jpeg -s formatOptions 85 /Users/pierreboucaud/Edged/assets/pierre.png --out /Users/pierreboucaud/Edged/assets/pierre-avatar.jpg)"
+    ]
+  }
+}

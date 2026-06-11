@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0C0C0C" />
+  <title>Réserve ton appel · EDGED</title>
+  <meta name="description" content="Choisis un créneau de 30 minutes pour faire le point sur ta situation et voir si EDGED est fait pour toi." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Reset & base ─────────────────────────────────────── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --ink:         #0C0C0C;
+      --ink-2:       #141414;
+      --ink-3:       #1B1B1B;
+      --cream:       #F0EBE0;
+      --cream-dim:   #C8C3B8;
+      --cream-muted: #8A867D;
+      --copper:      #C07840;
+      --copper-dim:  #8A5730;
+      --rule:        rgba(240,235,224,0.10);
+      --radius-sm:   8px;
+      --radius-md:   12px;
+      --max-width:   760px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--cream);
+      background: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      line-height: 1;
+    }
+
+    .dot { color: var(--copper); }
+
+    /* ─── Ambient background ──────────────────────────────── */
+    .bg-fx {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .bg-glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      will-change: transform;
+    }
+
+    .bg-glow--a {
+      top: calc(-15% + var(--scroll, 0) * 30vh);
+      left: -10%;
+      width: 50vw;
+      height: 50vw;
+      background: radial-gradient(circle, rgba(192,120,64,0.30), transparent 70%);
+      animation: drift-a 34s ease-in-out infinite alternate;
+    }
+
+    .bg-glow--b {
+      top: calc(45% - var(--scroll, 0) * 25vh);
+      right: -15%;
+      width: 46vw;
+      height: 46vw;
+      background: radial-gradient(circle, rgba(192,120,64,0.22), transparent 70%);
+      animation: drift-b 40s ease-in-out infinite alternate;
+    }
+
+    .bg-glow--c {
+      top: calc(85% + var(--scroll, 0) * 20vh);
+      left: 15%;
+      width: 42vw;
+      height: 42vw;
+      background: radial-gradient(circle, rgba(138,87,48,0.28), transparent 70%);
+      animation: drift-c 46s ease-in-out infinite alternate;
+    }
+
+    .bg-glow--cursor {
+      top: 0;
+      left: 0;
+      width: 36vw;
+      height: 36vw;
+      background: radial-gradient(circle, rgba(192,120,64,0.16), transparent 70%);
+      transform: translate(-9999px, -9999px);
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .bg-fx.has-pointer .bg-glow--cursor { opacity: 1; }
+
+    @keyframes drift-a {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(8vw, 10vh) scale(1.15); }
+    }
+
+    @keyframes drift-b {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(-10vw, -6vh) scale(0.9); }
+    }
+
+    @keyframes drift-c {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(6vw, -10vh) scale(1.1); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bg-glow { animation: none !important; }
+      .bg-glow--cursor { transition: none; }
+    }
+
+    /* ─── Layout ───────────────────────────────────────────── */
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 4rem 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    section:first-of-type { border-top: none; }
+
+    /* ─── Top bar ──────────────────────────────────────────── */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 0;
+    }
+
+    .topbar .mark {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.06em;
+      color: var(--cream);
+      text-decoration: none;
+    }
+
+    .topbar nav {
+      display: flex;
+      gap: 28px;
+    }
+
+    .topbar nav a {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cream-muted);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .topbar nav a:hover { color: var(--cream); }
+
+    .btn-nav {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--cream);
+      border: 1px solid var(--rule);
+      padding: 10px 18px;
+      border-radius: 20px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .btn-nav:hover { border-color: var(--copper); color: var(--copper); }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .profile-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex: none;
+      padding: 4px 14px 4px 4px;
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      color: var(--cream-dim);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .profile-pill:hover { border-color: var(--copper); color: var(--copper); }
+
+    .profile-pill img {
+      display: block;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex: none;
+    }
+
+    @media (max-width: 640px) {
+      .topbar nav { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .profile-pill {
+        padding: 0;
+        border: none;
+      }
+      .profile-pill span { display: none; }
+      .profile-pill img { width: 34px; height: 34px; }
+    }
+
+    /* ─── Typography ───────────────────────────────────────── */
+    .overline {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--copper);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.25rem;
+    }
+
+    .overline::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--copper);
+      flex: none;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 6.5vw, 42px);
+      line-height: 1.05;
+    }
+
+    .lead {
+      font-size: 16px;
+      color: var(--cream-dim);
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 0;
+    }
+
+    /* ─── Buttons ──────────────────────────────────────────── */
+    .btn-main {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 16px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 16px 28px;
+      background: var(--copper);
+      color: var(--ink);
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s ease, color 0.15s ease;
+      width: 100%;
+    }
+
+    .btn-main:hover { background: var(--cream); color: var(--ink); }
+
+    .btn-main:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .btn-main:disabled:hover { background: var(--copper); color: var(--ink); }
+
+    /* ─── Booking intro ────────────────────────────────────── */
+    .booking-hero { padding-bottom: 2.5rem; }
+
+    .booking-hero .section-title { margin-bottom: 1rem; }
+
+    /* ─── Calendar ─────────────────────────────────────────── */
+    .cal-card {
+      background: var(--ink-2);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+    }
+
+    .cal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .cal-month {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 0.06em;
+    }
+
+    .cal-nav-btn {
+      width: 36px;
+      height: 36px;
+      flex: none;
+      border-radius: 50%;
+      border: 1px solid var(--rule);
+      background: none;
+      color: var(--cream);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      line-height: 1;
+      font-family: 'DM Sans', sans-serif;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .cal-nav-btn:hover:not(:disabled) { border-color: var(--copper); color: var(--copper); }
+
+    .cal-nav-btn:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+    }
+
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+
+    .cal-weekday {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cream-muted);
+      text-align: center;
+      padding-bottom: 10px;
+    }
+
+    .cal-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--cream-muted);
+      background: var(--ink-3);
+      border: 1px solid transparent;
+      transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+    }
+
+    .cal-day.is-empty {
+      background: none;
+      visibility: hidden;
+    }
+
+    .cal-day:disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+    }
+
+    .cal-day.is-available {
+      cursor: pointer;
+      color: var(--cream);
+      border-color: var(--rule);
+    }
+
+    .cal-day.is-available:hover {
+      border-color: var(--copper);
+      color: var(--copper);
+    }
+
+    .cal-day.is-today:not(.is-selected) {
+      box-shadow: inset 0 0 0 1px var(--copper-dim);
+    }
+
+    .cal-day.is-selected {
+      background: var(--copper);
+      border-color: var(--copper);
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    @media (max-width: 480px) {
+      .cal-day { font-size: 12px; }
+      .cal-card { padding: 1.25rem 1rem; }
+    }
+
+    /* ─── Time slots ───────────────────────────────────────── */
+    .slot-card {
+      margin-top: 1.5rem;
+      background: var(--ink-2);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+    }
+
+    .slot-label {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--cream-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .slot-label span { color: var(--cream); }
+
+    .slot-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+      gap: 10px;
+    }
+
+    .slot-empty {
+      font-size: 14px;
+      color: var(--cream-muted);
+      grid-column: 1 / -1;
+    }
+
+    .slot-btn {
+      padding: 13px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--rule);
+      background: var(--ink-3);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+    }
+
+    .slot-btn:hover { border-color: var(--copper); }
+
+    .slot-btn.is-selected {
+      background: var(--copper);
+      color: var(--ink);
+      border-color: var(--copper);
+    }
+
+    /* ─── Form ─────────────────────────────────────────────── */
+    .summary-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(192, 120, 64, 0.08);
+      border: 1px solid rgba(192, 120, 64, 0.35);
+      border-radius: var(--radius-md);
+      padding: 1.1rem 1.25rem;
+      font-size: 14px;
+      color: var(--cream);
+      margin-bottom: 1.75rem;
+    }
+
+    .summary-icon {
+      flex: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(192, 120, 64, 0.18);
+      color: var(--copper);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 14px;
+    }
+
+    .booking-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.1rem;
+    }
+
+    @media (max-width: 560px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    .form-field label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--cream-muted);
+      margin-bottom: 8px;
+    }
+
+    .form-field input,
+    .form-field textarea {
+      width: 100%;
+      padding: 14px 16px;
+      background: var(--ink-3);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-sm);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      transition: border-color 0.15s ease;
+    }
+
+    .form-field input::placeholder,
+    .form-field textarea::placeholder { color: var(--cream-muted); }
+
+    .form-field input:focus,
+    .form-field textarea:focus {
+      outline: none;
+      border-color: var(--copper);
+    }
+
+    .form-field textarea { resize: vertical; min-height: 96px; font-family: 'DM Sans', sans-serif; }
+
+    .form-note {
+      font-size: 13px;
+      color: var(--cream-muted);
+      line-height: 1.6;
+      text-align: center;
+      display: none;
+    }
+
+    .form-note.is-visible {
+      display: block;
+      color: var(--copper);
+    }
+
+    /* ─── Footer / Colophon ────────────────────────────────── */
+    footer {
+      padding: 3rem 0 4rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    .colophon-mark {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 56px;
+      letter-spacing: 0.02em;
+      margin-bottom: 2.5rem;
+    }
+
+    .colophon-cols {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    @media (max-width: 560px) {
+      .colophon-cols { grid-template-columns: 1fr; gap: 1.75rem; }
+    }
+
+    .colophon-cols h6 {
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-bottom: 0.85rem;
+      font-weight: 500;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .colophon-cols p, .colophon-cols a {
+      font-size: 13px;
+      color: var(--cream-dim);
+      line-height: 1.9;
+      text-decoration: none;
+      display: block;
+    }
+
+    .colophon-cols a:hover { color: var(--cream); }
+
+    .final-line {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream-muted);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg-fx" aria-hidden="true">
+    <div class="bg-glow bg-glow--a"></div>
+    <div class="bg-glow bg-glow--b"></div>
+    <div class="bg-glow bg-glow--c"></div>
+    <div class="bg-glow bg-glow--cursor"></div>
+  </div>
+
+  <main class="wrapper">
+
+    <!-- ─── TOPBAR ────────────────────────────────────────── -->
+    <header class="topbar">
+      <a href="index.html#top" class="mark">EDGED<span class="dot">.</span></a>
+      <nav>
+        <a href="index.html#programme">Programme</a>
+        <a href="index.html#pour-qui">Pour qui</a>
+        <a href="index.html#faq">FAQ</a>
+      </nav>
+      <div class="topbar-right">
+        <a href="a-propos.html" class="profile-pill">
+          <img src="assets/pierre-avatar.jpg" alt="Pierre Boucaud" />
+          <span>Pierre</span>
+        </a>
+        <a href="index.html" class="btn-nav">← Retour</a>
+      </div>
+    </header>
+
+    <!-- ─── INTRO ─────────────────────────────────────────── -->
+    <section class="booking-hero" id="top">
+      <p class="overline">Réserver un appel</p>
+      <h1 class="section-title">Choisis ton créneau<span class="dot">.</span></h1>
+      <p class="lead">
+        Sélectionne un jour et une heure qui t'arrangent pour un appel de 30 minutes.
+        Je reviens vers toi sur WhatsApp sous 24h pour confirmer le rendez-vous.
+      </p>
+    </section>
+
+    <!-- ─── CALENDRIER ────────────────────────────────────── -->
+    <section class="booking-calendar">
+      <div class="cal-card">
+        <div class="cal-header">
+          <button type="button" class="cal-nav-btn" id="calPrev" aria-label="Mois précédent">‹</button>
+          <div class="cal-month" id="calMonth"></div>
+          <button type="button" class="cal-nav-btn" id="calNext" aria-label="Mois suivant">›</button>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+      </div>
+
+      <div class="slot-card" id="slotCard" hidden>
+        <p class="slot-label">Créneaux disponibles le <span id="slotDate"></span></p>
+        <div class="slot-grid" id="slotGrid"></div>
+      </div>
+    </section>
+
+    <!-- ─── FORMULAIRE ────────────────────────────────────── -->
+    <section class="booking-form-section" id="formSection" hidden>
+      <p class="overline">Tes coordonnées</p>
+      <h2 class="section-title" style="margin-bottom: 1.75rem;">On finalise<span class="dot">.</span></h2>
+
+      <div class="summary-card">
+        <span class="summary-icon">✓</span>
+        <span id="summaryText"></span>
+      </div>
+
+      <form class="booking-form" id="bookingForm">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="bf-name">Prénom &amp; nom</label>
+            <input type="text" id="bf-name" name="name" required />
+          </div>
+          <div class="form-field">
+            <label for="bf-phone">Téléphone <span style="text-transform: none; letter-spacing: 0;">(WhatsApp)</span></label>
+            <input type="tel" id="bf-phone" name="phone" required placeholder="+33 6 12 34 56 78" />
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="bf-email">Email <span style="text-transform: none; letter-spacing: 0;">(optionnel)</span></label>
+          <input type="email" id="bf-email" name="email" />
+        </div>
+        <div class="form-field">
+          <label for="bf-message">Message <span style="text-transform: none; letter-spacing: 0;">(optionnel)</span></label>
+          <textarea id="bf-message" name="message" placeholder="Dis-moi en quelques mots où tu en es et ce que tu cherches."></textarea>
+        </div>
+        <button type="submit" class="btn-main">Confirmer ma demande →</button>
+        <p class="form-note" id="formNote">WhatsApp va s'ouvrir avec ta demande pré-remplie. Envoie le message et je te confirme le créneau sous 24h.</p>
+      </form>
+    </section>
+
+    <!-- ─── FOOTER / COLOPHON ──────────────────────────────── -->
+    <footer>
+      <div class="colophon-mark">EDGED<span class="dot">.</span></div>
+      <div class="colophon-cols">
+        <div>
+          <h6>Programme</h6>
+          <a href="index.html#programme">Programme</a>
+          <a href="index.html#pour-qui">Pour qui</a>
+          <a href="index.html#faq">FAQ</a>
+        </div>
+        <div>
+          <h6>Contact</h6>
+          <a href="mailto:pierre.boucaud7@gmail.com">pierre.boucaud7@gmail.com</a>
+          <a href="https://www.instagram.com/pierre_boucaud/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/pierre-boucaud-277347256/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <div>
+          <h6>Légal</h6>
+          <a href="#">Mentions légales</a>
+          <a href="#">CGV</a>
+          <a href="#">Politique de confidentialité</a>
+        </div>
+      </div>
+      <div class="final-line">
+        <div>EDGED · Formation closing</div>
+        <div>Pierre Boucaud · 2026</div>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    (function () {
+      var fx = document.querySelector('.bg-fx');
+      var cursor = document.querySelector('.bg-glow--cursor');
+      if (!fx || !cursor) return;
+
+      var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      var scrollTicking = false;
+      function updateScroll() {
+        scrollTicking = false;
+        var doc = document.documentElement;
+        var max = doc.scrollHeight - window.innerHeight;
+        var progress = max > 0 ? window.scrollY / max : 0;
+        doc.style.setProperty('--scroll', progress.toFixed(4));
+      }
+      window.addEventListener('scroll', function () {
+        if (!scrollTicking) { scrollTicking = true; requestAnimationFrame(updateScroll); }
+      }, { passive: true });
+      updateScroll();
+
+      if (!prefersReducedMotion && window.matchMedia('(pointer: fine)').matches) {
+        var targetX = window.innerWidth / 2;
+        var targetY = window.innerHeight / 2;
+        var curX = targetX;
+        var curY = targetY;
+
+        window.addEventListener('mousemove', function (e) {
+          targetX = e.clientX;
+          targetY = e.clientY;
+          fx.classList.add('has-pointer');
+        });
+
+        (function animateCursor() {
+          curX += (targetX - curX) * 0.06;
+          curY += (targetY - curY) * 0.06;
+          cursor.style.transform = 'translate(' + curX + 'px, ' + curY + 'px) translate(-50%, -50%)';
+          requestAnimationFrame(animateCursor);
+        })();
+      }
+    })();
+
+    (function () {
+      // ✏️ Remplace par ton numéro WhatsApp (format international, sans + ni espaces, ex: 33612345678)
+      var WHATSAPP_NUMBER = '33600000000';
+
+      // ✏️ Configure tes disponibilités ici
+      var AVAILABILITY = {
+        // Jours ouverts : 0 = dimanche, 1 = lundi ... 6 = samedi
+        openDays: [1, 2, 3, 4, 5],
+        // Créneaux proposés chaque jour ouvert (format 24h)
+        slots: ['09:00', '10:30', '14:00', '15:30', '17:00'],
+        // Nombre de jours visibles à partir d'aujourd'hui
+        daysAhead: 3,
+        // Délai minimum avant de pouvoir réserver un créneau (en heures)
+        minNoticeHours: 24,
+        // Dates spécifiques fermées, format 'AAAA-MM-JJ'
+        closedDates: []
+      };
+
+      var MONTHS = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+      var WEEKDAYS_SHORT = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+      var WEEKDAYS_LONG = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+
+      var calMonth = document.getElementById('calMonth');
+      var calGrid = document.getElementById('calGrid');
+      var calPrev = document.getElementById('calPrev');
+      var calNext = document.getElementById('calNext');
+      var slotCard = document.getElementById('slotCard');
+      var slotGrid = document.getElementById('slotGrid');
+      var slotDateEl = document.getElementById('slotDate');
+      var formSection = document.getElementById('formSection');
+      var summaryText = document.getElementById('summaryText');
+      var bookingForm = document.getElementById('bookingForm');
+      var formNote = document.getElementById('formNote');
+
+      if (!calGrid) return;
+
+      var today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      var maxDate = new Date(today);
+      maxDate.setDate(maxDate.getDate() + AVAILABILITY.daysAhead);
+
+      var viewYear = today.getFullYear();
+      var viewMonth = today.getMonth();
+      var selectedDateKey = null;
+      var selectedSlot = null;
+
+      function pad(n) { return n < 10 ? '0' + n : '' + n; }
+      function dateKey(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+
+      function getAvailableSlots(d) {
+        var key = dateKey(d);
+        if (AVAILABILITY.closedDates.indexOf(key) !== -1) return [];
+        if (AVAILABILITY.openDays.indexOf(d.getDay()) === -1) return [];
+
+        var now = new Date();
+        var noticeMs = AVAILABILITY.minNoticeHours * 3600 * 1000;
+
+        return AVAILABILITY.slots.filter(function (t) {
+          var parts = t.split(':');
+          var slotDate = new Date(d.getFullYear(), d.getMonth(), d.getDate(), parseInt(parts[0], 10), parseInt(parts[1], 10));
+          return slotDate.getTime() - now.getTime() >= noticeMs;
+        });
+      }
+
+      function isInRange(d) {
+        return d >= today && d <= maxDate;
+      }
+
+      function formatDateLong(d) {
+        return WEEKDAYS_LONG[d.getDay()] + ' ' + d.getDate() + ' ' + MONTHS[d.getMonth()].toLowerCase() + ' ' + d.getFullYear();
+      }
+
+      function renderCalendar() {
+        calMonth.textContent = MONTHS[viewMonth] + ' ' + viewYear;
+        calGrid.innerHTML = '';
+
+        WEEKDAYS_SHORT.forEach(function (wd) {
+          var el = document.createElement('div');
+          el.className = 'cal-weekday';
+          el.textContent = wd;
+          calGrid.appendChild(el);
+        });
+
+        var firstOfMonth = new Date(viewYear, viewMonth, 1);
+        var startOffset = (firstOfMonth.getDay() + 6) % 7; // grid starts on Monday
+        var daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+
+        for (var i = 0; i < startOffset; i++) {
+          var empty = document.createElement('div');
+          empty.className = 'cal-day is-empty';
+          calGrid.appendChild(empty);
+        }
+
+        var _loop = function (day) {
+          var d = new Date(viewYear, viewMonth, day);
+          var key = dateKey(d);
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'cal-day';
+          btn.textContent = day;
+
+          if (key === dateKey(today)) btn.classList.add('is-today');
+
+          var slots = isInRange(d) ? getAvailableSlots(d) : [];
+
+          if (slots.length > 0) {
+            btn.classList.add('is-available');
+            btn.addEventListener('click', function () { selectDate(key, d); });
+          } else {
+            btn.disabled = true;
+          }
+
+          if (key === selectedDateKey) btn.classList.add('is-selected');
+
+          calGrid.appendChild(btn);
+        };
+
+        for (var day = 1; day <= daysInMonth; day++) _loop(day);
+
+        calPrev.disabled = (viewYear === today.getFullYear() && viewMonth === today.getMonth());
+
+        var nextMonthStart = new Date(viewYear, viewMonth + 1, 1);
+        calNext.disabled = nextMonthStart > maxDate;
+      }
+
+      function selectDate(key, d) {
+        selectedDateKey = key;
+        selectedSlot = null;
+        formSection.hidden = true;
+        renderCalendar();
+        renderSlots(d);
+      }
+
+      function renderSlots(d) {
+        var slots = getAvailableSlots(d);
+        slotDateEl.innerHTML = '<span>' + formatDateLong(d) + '</span>';
+        slotGrid.innerHTML = '';
+
+        if (slots.length === 0) {
+          var empty = document.createElement('p');
+          empty.className = 'slot-empty';
+          empty.textContent = "Plus de créneau disponible ce jour-là.";
+          slotGrid.appendChild(empty);
+        } else {
+          slots.forEach(function (t) {
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'slot-btn';
+            btn.textContent = t;
+            btn.addEventListener('click', function () {
+              selectedSlot = t;
+              Array.prototype.forEach.call(slotGrid.children, function (c) { c.classList.remove('is-selected'); });
+              btn.classList.add('is-selected');
+              showForm(d, t);
+            });
+            slotGrid.appendChild(btn);
+          });
+        }
+
+        slotCard.hidden = false;
+      }
+
+      function showForm(d, t) {
+        summaryText.textContent = 'Appel de 30 min · ' + formatDateLong(d) + ' à ' + t;
+        formNote.classList.remove('is-visible');
+        formSection.hidden = false;
+        formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      calPrev.addEventListener('click', function () {
+        viewMonth -= 1;
+        if (viewMonth < 0) { viewMonth = 11; viewYear -= 1; }
+        renderCalendar();
+      });
+
+      calNext.addEventListener('click', function () {
+        viewMonth += 1;
+        if (viewMonth > 11) { viewMonth = 0; viewYear += 1; }
+        renderCalendar();
+      });
+
+      bookingForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!selectedDateKey || !selectedSlot) return;
+
+        var name = document.getElementById('bf-name').value.trim();
+        var phone = document.getElementById('bf-phone').value.trim();
+        var email = document.getElementById('bf-email').value.trim();
+        var message = document.getElementById('bf-message').value.trim();
+        if (!name || !phone) return;
+
+        var parts = selectedDateKey.split('-');
+        var d = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+        var when = formatDateLong(d) + ' à ' + selectedSlot;
+
+        var text = 'Bonjour Pierre, je souhaite réserver un appel de 30 minutes le ' + when + '.\n\n'
+          + 'Nom : ' + name + '\n'
+          + 'Téléphone : ' + phone
+          + (email ? '\nEmail : ' + email : '')
+          + (message ? '\nMessage : ' + message : '')
+          + '\n\nMerci de me confirmer ce créneau.';
+
+        var waUrl = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(text);
+
+        window.open(waUrl, '_blank');
+        formNote.classList.add('is-visible');
+      });
+
+      renderCalendar();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0C0C0C" />
+  <title>Qui suis-je ? · EDGED</title>
+  <meta name="description" content="Pierre Boucaud, fondateur d'EDGED. Closer actif au quotidien, je forme celles et ceux qui veulent apprendre à vendre à distance." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Reset & base ─────────────────────────────────────── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --ink:         #0C0C0C;
+      --ink-2:       #141414;
+      --ink-3:       #1B1B1B;
+      --cream:       #F0EBE0;
+      --cream-dim:   #C8C3B8;
+      --cream-muted: #8A867D;
+      --copper:      #C07840;
+      --copper-dim:  #8A5730;
+      --rule:        rgba(240,235,224,0.10);
+      --radius-sm:   8px;
+      --radius-md:   12px;
+      --max-width:   760px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--cream);
+      background: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      line-height: 1;
+    }
+
+    .dot { color: var(--copper); }
+
+    /* ─── Ambient background ──────────────────────────────── */
+    .bg-fx {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .bg-glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      will-change: transform;
+    }
+
+    .bg-glow--a {
+      top: calc(-15% + var(--scroll, 0) * 30vh);
+      left: -10%;
+      width: 50vw;
+      height: 50vw;
+      background: radial-gradient(circle, rgba(192,120,64,0.30), transparent 70%);
+      animation: drift-a 34s ease-in-out infinite alternate;
+    }
+
+    .bg-glow--b {
+      top: calc(45% - var(--scroll, 0) * 25vh);
+      right: -15%;
+      width: 46vw;
+      height: 46vw;
+      background: radial-gradient(circle, rgba(192,120,64,0.22), transparent 70%);
+      animation: drift-b 40s ease-in-out infinite alternate;
+    }
+
+    .bg-glow--c {
+      top: calc(85% + var(--scroll, 0) * 20vh);
+      left: 15%;
+      width: 42vw;
+      height: 42vw;
+      background: radial-gradient(circle, rgba(138,87,48,0.28), transparent 70%);
+      animation: drift-c 46s ease-in-out infinite alternate;
+    }
+
+    .bg-glow--cursor {
+      top: 0;
+      left: 0;
+      width: 36vw;
+      height: 36vw;
+      background: radial-gradient(circle, rgba(192,120,64,0.16), transparent 70%);
+      transform: translate(-9999px, -9999px);
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .bg-fx.has-pointer .bg-glow--cursor { opacity: 1; }
+
+    @keyframes drift-a {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(8vw, 10vh) scale(1.15); }
+    }
+
+    @keyframes drift-b {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(-10vw, -6vh) scale(0.9); }
+    }
+
+    @keyframes drift-c {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(6vw, -10vh) scale(1.1); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bg-glow { animation: none !important; }
+      .bg-glow--cursor { transition: none; }
+    }
+
+    /* ─── Layout ───────────────────────────────────────────── */
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 4rem 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    section:first-of-type { border-top: none; }
+
+    /* ─── Top bar ──────────────────────────────────────────── */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 0;
+    }
+
+    .topbar .mark {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.06em;
+      color: var(--cream);
+      text-decoration: none;
+    }
+
+    .topbar nav {
+      display: flex;
+      gap: 28px;
+    }
+
+    .topbar nav a {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cream-muted);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .topbar nav a:hover { color: var(--cream); }
+
+    .btn-nav {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--cream);
+      border: 1px solid var(--rule);
+      padding: 10px 18px;
+      border-radius: 20px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .btn-nav:hover { border-color: var(--copper); color: var(--copper); }
+
+    @media (max-width: 640px) {
+      .topbar nav { display: none; }
+    }
+
+    /* ─── Typography ───────────────────────────────────────── */
+    .overline {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--copper);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.25rem;
+    }
+
+    .overline::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--copper);
+      flex: none;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 6.5vw, 42px);
+      line-height: 1.05;
+    }
+
+    .lead {
+      font-size: 16px;
+      color: var(--cream-dim);
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 0;
+    }
+
+    /* ─── About / Qui suis-je ──────────────────────────────── */
+    .about-hero { padding-bottom: 2.5rem; }
+    .about-hero .section-title { margin-bottom: 1rem; }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 1.25rem;
+      align-items: stretch;
+    }
+
+    @media (max-width: 720px) {
+      .about-grid { grid-template-columns: 1fr; }
+    }
+
+    .about-photo-card {
+      background: var(--ink-2);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .about-photo-card img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      display: block;
+    }
+
+    .about-photo-info {
+      padding: 1.5rem;
+      margin-top: auto;
+    }
+
+    .about-name {
+      font-size: 24px;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+
+    .about-role {
+      font-size: 13px;
+      color: var(--cream-muted);
+      margin-bottom: 14px;
+    }
+
+    .about-flag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--cream-dim);
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      padding: 6px 14px;
+    }
+
+    .about-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 480px) {
+      .about-links { grid-template-columns: 1fr; }
+    }
+
+    .about-link {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: var(--ink-2);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      text-decoration: none;
+      color: var(--cream);
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+
+    .about-link:hover {
+      border-color: var(--copper);
+      transform: translateY(-2px);
+    }
+
+    .about-link-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: none;
+    }
+
+    .about-link-icon svg { width: 18px; height: 18px; }
+
+    .about-link--ig .about-link-icon   { background: rgba(214, 123, 168, 0.16); color: #D98BB0; }
+    .about-link--li .about-link-icon   { background: rgba(127, 168, 214, 0.16); color: #86AEDB; }
+    .about-link--call .about-link-icon { background: rgba(192, 120, 64, 0.16);  color: var(--copper); }
+    .about-link--mail .about-link-icon { background: rgba(143, 214, 172, 0.16); color: #8FD6AC; }
+
+    .about-link-title {
+      font-size: 18px;
+      letter-spacing: 0.04em;
+    }
+
+    .about-link-desc {
+      font-size: 13px;
+      color: var(--cream-muted);
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+
+    .about-link-cta {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--copper);
+    }
+
+    /* ─── Footer / Colophon ────────────────────────────────── */
+    footer {
+      padding: 3rem 0 4rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    .colophon-mark {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 56px;
+      letter-spacing: 0.02em;
+      margin-bottom: 2.5rem;
+    }
+
+    .colophon-cols {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    @media (max-width: 560px) {
+      .colophon-cols { grid-template-columns: 1fr; gap: 1.75rem; }
+    }
+
+    .colophon-cols h6 {
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-bottom: 0.85rem;
+      font-weight: 500;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .colophon-cols p, .colophon-cols a {
+      font-size: 13px;
+      color: var(--cream-dim);
+      line-height: 1.9;
+      text-decoration: none;
+      display: block;
+    }
+
+    .colophon-cols a:hover { color: var(--cream); }
+
+    .final-line {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream-muted);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg-fx" aria-hidden="true">
+    <div class="bg-glow bg-glow--a"></div>
+    <div class="bg-glow bg-glow--b"></div>
+    <div class="bg-glow bg-glow--c"></div>
+    <div class="bg-glow bg-glow--cursor"></div>
+  </div>
+
+  <main class="wrapper">
+
+    <!-- ─── TOPBAR ────────────────────────────────────────── -->
+    <header class="topbar">
+      <a href="index.html#top" class="mark">EDGED<span class="dot">.</span></a>
+      <nav>
+        <a href="index.html#programme">Programme</a>
+        <a href="index.html#pour-qui">Pour qui</a>
+        <a href="index.html#faq">FAQ</a>
+      </nav>
+      <div class="topbar-right">
+        <a href="reservation.html" class="btn-nav">Réserver un appel</a>
+      </div>
+    </header>
+
+    <!-- ─── INTRO ─────────────────────────────────────────── -->
+    <section class="about-hero" id="top">
+      <p class="overline">Qui suis-je</p>
+      <h1 class="section-title">Salut, moi c'est Pierre<span class="dot">.</span></h1>
+      <p class="lead">
+        Fondateur d'EDGED. Closer actif au quotidien, je forme celles et ceux qui veulent
+        apprendre à vendre à distance et signer leurs premiers deals high ticket.
+      </p>
+    </section>
+
+    <!-- ─── PROFIL & LIENS ────────────────────────────────── -->
+    <section class="about-content">
+      <div class="about-grid">
+        <div class="about-photo-card">
+          <img src="assets/pierre.jpg" alt="Pierre Boucaud" />
+          <div class="about-photo-info">
+            <div class="about-name">Pierre Boucaud<span class="dot">.</span></div>
+            <div class="about-role">Closer &amp; fondateur d'EDGED</div>
+            <div class="about-flag">🇫🇷 Paris, France</div>
+          </div>
+        </div>
+
+        <div class="about-links">
+          <a class="about-link about-link--ig" href="https://www.instagram.com/pierre_boucaud/" target="_blank" rel="noopener">
+            <span class="about-link-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="0.6" fill="currentColor"/></svg>
+            </span>
+            <span class="about-link-title">Instagram</span>
+            <span class="about-link-desc">Coulisses, conseils et vie de closer au quotidien.</span>
+            <span class="about-link-cta">Voir le profil →</span>
+          </a>
+
+          <a class="about-link about-link--li" href="https://www.linkedin.com/in/pierre-boucaud-277347256/" target="_blank" rel="noopener">
+            <span class="about-link-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.94 6 2.5 6S0 4.88 0 3.5 1.04 1 2.48 1 4.98 2.12 4.98 3.5zM.5 8h4V23h-4V8zM8.5 8h3.8v2.05h.05c.53-.99 1.83-2.05 3.77-2.05C20.5 8 22 10.1 22 14.1V23h-4v-7.9c0-1.9-.03-4.34-2.65-4.34-2.65 0-3.06 2.07-3.06 4.2V23h-4V8z"/></svg>
+            </span>
+            <span class="about-link-title">LinkedIn</span>
+            <span class="about-link-desc">Mon parcours et mes prises de parole sur le closing.</span>
+            <span class="about-link-cta">Voir le profil →</span>
+          </a>
+
+          <a class="about-link about-link--call" href="reservation.html">
+            <span class="about-link-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>
+            </span>
+            <span class="about-link-title">Réserver un appel</span>
+            <span class="about-link-desc">30 minutes pour faire le point sur ta situation, sans engagement.</span>
+            <span class="about-link-cta">Choisir un créneau →</span>
+          </a>
+
+          <a class="about-link about-link--mail" href="mailto:pierre.boucaud7@gmail.com">
+            <span class="about-link-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            </span>
+            <span class="about-link-title">Email</span>
+            <span class="about-link-desc">Une question ? Écris-moi directement, je réponds perso.</span>
+            <span class="about-link-cta">M'écrire →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── FOOTER / COLOPHON ──────────────────────────────── -->
+    <footer>
+      <div class="colophon-mark">EDGED<span class="dot">.</span></div>
+      <div class="colophon-cols">
+        <div>
+          <h6>Programme</h6>
+          <a href="index.html#programme">Programme</a>
+          <a href="index.html#pour-qui">Pour qui</a>
+          <a href="index.html#faq">FAQ</a>
+        </div>
+        <div>
+          <h6>Contact</h6>
+          <a href="mailto:pierre.boucaud7@gmail.com">pierre.boucaud7@gmail.com</a>
+          <a href="https://www.instagram.com/pierre_boucaud/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/pierre-boucaud-277347256/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <div>
+          <h6>Légal</h6>
+          <a href="#">Mentions légales</a>
+          <a href="#">CGV</a>
+          <a href="#">Politique de confidentialité</a>
+        </div>
+      </div>
+      <div class="final-line">
+        <div>EDGED · Formation closing</div>
+        <div>Pierre Boucaud · 2026</div>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    (function () {
+      var fx = document.querySelector('.bg-fx');
+      var cursor = document.querySelector('.bg-glow--cursor');
+      if (!fx || !cursor) return;
+
+      var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      var scrollTicking = false;
+      function updateScroll() {
+        scrollTicking = false;
+        var doc = document.documentElement;
+        var max = doc.scrollHeight - window.innerHeight;
+        var progress = max > 0 ? window.scrollY / max : 0;
+        doc.style.setProperty('--scroll', progress.toFixed(4));
+      }
+      window.addEventListener('scroll', function () {
+        if (!scrollTicking) { scrollTicking = true; requestAnimationFrame(updateScroll); }
+      }, { passive: true });
+      updateScroll();
+
+      if (!prefersReducedMotion && window.matchMedia('(pointer: fine)').matches) {
+        var targetX = window.innerWidth / 2;
+        var targetY = window.innerHeight / 2;
+        var curX = targetX;
+        var curY = targetY;
+
+        window.addEventListener('mousemove', function (e) {
+          targetX = e.clientX;
+          targetY = e.clientY;
+          fx.classList.add('has-pointer');
+        });
+
+        (function animateCursor() {
+          curX += (targetX - curX) * 0.06;
+          curY += (targetY - curY) * 0.06;
+          cursor.style.transform = 'translate(' + curX + 'px, ' + curY + 'px) translate(-50%, -50%)';
+          requestAnimationFrame(animateCursor);
+        })();
+      }
+    })();
+  </script>
+</body>
+</html>
