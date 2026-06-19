@@ -308,261 +308,16 @@
 
     /* ─── Booking intro ────────────────────────────────────── */
     .booking-hero { padding-bottom: 2.5rem; }
-
     .booking-hero .section-title { margin-bottom: 1rem; }
 
-    /* ─── Calendar ─────────────────────────────────────────── */
-    .cal-card {
-      background: var(--ink-2);
-      border: 1px solid var(--rule);
-      border-radius: var(--radius-md);
-      padding: 1.5rem;
-    }
+    /* ─── Cal.com embed ─────────────────────────────────────── */
+    .cal-embed-section { padding-top: 0; border-top: none; }
 
-    .cal-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1.5rem;
-    }
-
-    .cal-month {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 20px;
-      letter-spacing: 0.06em;
-    }
-
-    .cal-nav-btn {
-      width: 36px;
-      height: 36px;
-      flex: none;
-      border-radius: 50%;
-      border: 1px solid var(--rule);
-      background: none;
-      color: var(--cream);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      line-height: 1;
-      font-family: 'DM Sans', sans-serif;
-      transition: border-color 0.15s ease, color 0.15s ease;
-    }
-
-    .cal-nav-btn:hover:not(:disabled) { border-color: var(--copper); color: var(--copper); }
-
-    .cal-nav-btn:disabled {
-      opacity: 0.25;
-      cursor: not-allowed;
-    }
-
-    .cal-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 6px;
-    }
-
-    .cal-weekday {
-      font-size: 10px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--cream-muted);
-      text-align: center;
-      padding-bottom: 10px;
-    }
-
-    .cal-day {
-      aspect-ratio: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: var(--radius-sm);
-      font-size: 14px;
-      font-family: 'DM Sans', sans-serif;
-      color: var(--cream-muted);
-      background: var(--ink-3);
-      border: 1px solid transparent;
-      transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
-    }
-
-    .cal-day.is-empty {
-      background: none;
-      visibility: hidden;
-    }
-
-    .cal-day:disabled {
-      cursor: not-allowed;
-      opacity: 0.45;
-    }
-
-    .cal-day.is-available {
-      cursor: pointer;
-      color: var(--cream);
-      border-color: var(--rule);
-    }
-
-    .cal-day.is-available:hover {
-      border-color: var(--copper);
-      color: var(--copper);
-    }
-
-    .cal-day.is-today:not(.is-selected) {
-      box-shadow: inset 0 0 0 1px var(--copper-dim);
-    }
-
-    .cal-day.is-selected {
-      background: var(--copper);
-      border-color: var(--copper);
-      color: var(--ink);
-      font-weight: 600;
-    }
-
-    @media (max-width: 480px) {
-      .cal-day { font-size: 12px; }
-      .cal-card { padding: 1.25rem 1rem; }
-    }
-
-    /* ─── Time slots ───────────────────────────────────────── */
-    .slot-card {
-      margin-top: 1.5rem;
-      background: var(--ink-2);
-      border: 1px solid var(--rule);
-      border-radius: var(--radius-md);
-      padding: 1.5rem;
-    }
-
-    .slot-label {
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--cream-muted);
-      margin-bottom: 1.25rem;
-    }
-
-    .slot-label span { color: var(--cream); }
-
-    .slot-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
-      gap: 10px;
-    }
-
-    .slot-empty {
-      font-size: 14px;
-      color: var(--cream-muted);
-      grid-column: 1 / -1;
-    }
-
-    .slot-btn {
-      padding: 13px 10px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--rule);
-      background: var(--ink-3);
-      color: var(--cream);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
-    }
-
-    .slot-btn:hover { border-color: var(--copper); }
-
-    .slot-btn.is-selected {
-      background: var(--copper);
-      color: var(--ink);
-      border-color: var(--copper);
-    }
-
-    /* ─── Form ─────────────────────────────────────────────── */
-    .summary-card {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      background: rgba(192, 120, 64, 0.08);
-      border: 1px solid rgba(192, 120, 64, 0.35);
-      border-radius: var(--radius-md);
-      padding: 1.1rem 1.25rem;
-      font-size: 14px;
-      color: var(--cream);
-      margin-bottom: 1.75rem;
-    }
-
-    .summary-icon {
-      flex: none;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: rgba(192, 120, 64, 0.18);
-      color: var(--copper);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 14px;
-    }
-
-    .booking-form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.1rem;
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.1rem;
-    }
-
-    @media (max-width: 560px) {
-      .form-row { grid-template-columns: 1fr; }
-    }
-
-    .form-field label {
-      display: block;
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--cream-muted);
-      margin-bottom: 8px;
-    }
-
-    .form-field input,
-    .form-field textarea {
+    #cal-embed {
       width: 100%;
-      padding: 14px 16px;
-      background: var(--ink-3);
-      border: 1px solid var(--rule);
-      border-radius: var(--radius-sm);
-      color: var(--cream);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 15px;
-      transition: border-color 0.15s ease;
-    }
-
-    .form-field input::placeholder,
-    .form-field textarea::placeholder { color: var(--cream-muted); }
-
-    .form-field input:focus,
-    .form-field textarea:focus {
-      outline: none;
-      border-color: var(--copper);
-    }
-
-    .form-field textarea { resize: vertical; min-height: 96px; font-family: 'DM Sans', sans-serif; }
-
-    .form-note {
-      font-size: 13px;
-      color: var(--cream-muted);
-      line-height: 1.6;
-      text-align: center;
-      display: none;
-    }
-
-    .form-note.is-visible {
-      display: block;
-      color: var(--copper);
+      min-height: 660px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
     }
 
     /* ─── Confirmation modal ───────────────────────────────── */
@@ -902,74 +657,14 @@
       </p>
     </section>
 
-    <!-- ─── CALENDRIER ────────────────────────────────────── -->
-    <section class="booking-calendar">
-      <div class="cal-card">
-        <div class="cal-header">
-          <button type="button" class="cal-nav-btn" id="calPrev" aria-label="Mois précédent">‹</button>
-          <div class="cal-month" id="calMonth"></div>
-          <button type="button" class="cal-nav-btn" id="calNext" aria-label="Mois suivant">›</button>
-        </div>
-        <div class="cal-grid" id="calGrid"></div>
-      </div>
-
-      <div class="slot-card" id="slotCard" hidden>
-        <p class="slot-label">Créneaux disponibles le <span id="slotDate"></span></p>
-        <div class="slot-grid" id="slotGrid"></div>
-      </div>
+    <!-- ─── CAL.COM EMBED ────────────────────────────────────── -->
+    <section class="cal-embed-section">
+      <div id="cal-embed"></div>
     </section>
 
-    <!-- ─── FORMULAIRE ────────────────────────────────────── -->
-    <section class="booking-form-section" id="formSection" hidden>
-      <p class="overline">Tes coordonnées</p>
-      <h2 class="section-title" style="margin-bottom: 1.75rem;">On finalise<span class="dot">.</span></h2>
-
-      <div class="summary-card">
-        <span class="summary-icon">✓</span>
-        <span id="summaryText"></span>
-      </div>
-
-      <form class="booking-form" id="bookingForm">
-        <div class="form-row">
-          <div class="form-field">
-            <label for="bf-name">Prénom &amp; nom</label>
-            <input type="text" id="bf-name" name="name" required />
-          </div>
-          <div class="form-field">
-            <label for="bf-phone">Téléphone <span style="text-transform: none; letter-spacing: 0;">(WhatsApp)</span></label>
-            <input type="tel" id="bf-phone" name="phone" required placeholder="+33 6 12 34 56 78" />
-          </div>
-        </div>
-        <div class="form-field">
-          <label for="bf-email">Email</label>
-          <input type="email" id="bf-email" name="email" required />
-        </div>
-        <div class="form-field">
-          <label for="bf-message">Message <span style="text-transform: none; letter-spacing: 0;">(optionnel)</span></label>
-          <textarea id="bf-message" name="message" placeholder="Dis-moi en quelques mots où tu en es et ce que tu cherches."></textarea>
-        </div>
-        <button type="submit" class="btn-main">Confirmer ma demande →</button>
-        <p class="form-note" id="formNote"></p>
-      </form>
-
-      <!-- Bannière succès — visible après fermeture du modal -->
-      <div id="successBanner" hidden>
-        <div class="success-banner">
-          <div class="success-banner-icon">✓</div>
-          <div>
-            <div class="success-banner-title">Appel réservé<span class="dot">.</span></div>
-            <p class="success-banner-sub" id="successBannerSub">Je te confirme le créneau sous 24h sur WhatsApp.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ─── MODAL CONFIRMATION ─────────────────────────────── -->
+    <!-- ─── MODAL CONFIRMATION (feux d'artifice + vidéo) ─────── -->
     <div class="modal-overlay" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-
-      <!-- Canvas feux d'artifice (derrière la card, dans l'overlay) -->
       <canvas class="confetti-canvas" id="confettiCanvas"></canvas>
-
       <div class="modal-card">
         <button class="modal-close" id="modalClose" aria-label="Fermer">×</button>
 
@@ -977,7 +672,7 @@
           <div class="modal-check">✓</div>
           <div>
             <h2 class="modal-title" id="modalTitle">Appel réservé<span class="dot">.</span></h2>
-            <p class="modal-sub" id="modalSlotSummary"></p>
+            <p class="modal-sub">Je te confirme le créneau par email.</p>
           </div>
         </div>
 
@@ -989,7 +684,7 @@
                <iframe src="https://www.youtube.com/embed/TON_ID" allowfullscreen></iframe>
              ──────────────────────────────────────────────────── -->
         <div class="modal-video-wrap">
-          <div class="modal-video-placeholder" id="modalVideoPlaceholder">
+          <div class="modal-video-placeholder">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <polygon points="5 3 19 12 5 21 5 3"/>
             </svg>
@@ -997,11 +692,9 @@
           </div>
         </div>
 
-        <!-- Barre de progression vidéo -->
         <div class="video-progress-wrap">
           <div class="video-progress-bar" id="videoProgressBar"></div>
         </div>
-
       </div>
     </div>
 
@@ -1078,344 +771,137 @@
       }
     })();
 
-    (function () {
-      // ✏️ Remplace par ton numéro WhatsApp (format international, sans + ni espaces, ex: 33612345678)
-      var WHATSAPP_NUMBER = '33600000000';
-
-      // ✏️ Configure tes disponibilités ici
-      var AVAILABILITY = {
-        // Jours ouverts : 0 = dimanche, 1 = lundi ... 6 = samedi
-        openDays: [1, 2, 3, 4, 5],
-        // Créneaux proposés chaque jour ouvert (format 24h)
-        slots: ['09:00', '10:30', '14:00', '15:30', '17:00'],
-        // Nombre de jours visibles à partir d'aujourd'hui
-        daysAhead: 3,
-        // Délai minimum avant de pouvoir réserver un créneau (en heures)
-        minNoticeHours: 24,
-        // Dates spécifiques fermées, format 'AAAA-MM-JJ'
-        closedDates: []
+    /* ── Cal.com embed ───────────────────────────────────── */
+    (function (C, A, L) {
+      var p = function (a, ar) { a.q.push(ar); };
+      var d = C.document;
+      C.Cal = C.Cal || function () {
+        var cal = C.Cal; var ar = arguments;
+        if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement('script')).src = A; cal.loaded = true; }
+        if (ar[0] === L) { var api = function () { p(api, arguments); }; var ns = ar[1]; api.q = api.q || []; typeof ns === 'string' ? (cal.ns[ns] = api) && p(api, ar) : p(cal, ar); return; }
+        p(cal, ar);
       };
+    })(window, 'https://app.cal.com/embed/embed.js', 'init');
 
-      var MONTHS = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
-      var WEEKDAYS_SHORT = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
-      var WEEKDAYS_LONG = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+    Cal('init', { origin: 'https://cal.com' });
 
-      var calMonth = document.getElementById('calMonth');
-      var calGrid = document.getElementById('calGrid');
-      var calPrev = document.getElementById('calPrev');
-      var calNext = document.getElementById('calNext');
-      var slotCard = document.getElementById('slotCard');
-      var slotGrid = document.getElementById('slotGrid');
-      var slotDateEl = document.getElementById('slotDate');
-      var formSection = document.getElementById('formSection');
-      var summaryText = document.getElementById('summaryText');
-      var bookingForm = document.getElementById('bookingForm');
-      var formNote = document.getElementById('formNote');
-      var confirmModal = document.getElementById('confirmModal');
-      var modalClose = document.getElementById('modalClose');
-      var modalSlotSummary = document.getElementById('modalSlotSummary');
-      var successBanner = document.getElementById('successBanner');
-      var successBannerSub = document.getElementById('successBannerSub');
-      var videoProgressBar = document.getElementById('videoProgressBar');
+    Cal('inline', {
+      elementOrSelector: '#cal-embed',
+      calLink: 'pierre-boucaud-bwegom/bilan-edged',
+      config: { layout: 'month_view' }
+    });
 
-      if (!calGrid) return;
+    Cal('ui', {
+      theme: 'dark',
+      styles: { branding: { brandColor: '#C07840' } },
+      hideEventTypeDetails: false,
+      layout: 'month_view'
+    });
 
-      var today = new Date();
-      today.setHours(0, 0, 0, 0);
+    /* Ouvre le modal de confirmation + feux d'artifice après booking Cal.com */
+    Cal('on', {
+      action: 'bookingSuccessful',
+      callback: function () { openConfirmModal(); }
+    });
 
-      var maxDate = new Date(today);
-      maxDate.setDate(maxDate.getDate() + AVAILABILITY.daysAhead);
+    /* ── Feux d'artifice ─────────────────────────────────── */
+    (function () {
+      var canvas = document.getElementById('confettiCanvas');
+      if (!canvas) return;
+      var ctx = canvas.getContext('2d');
+      var particles = [];
+      var animId = null;
+      var COLORS = ['#C07840', '#F0EBE0', '#C8C3B8', '#8A5730', '#F0EBE0', '#C07840'];
 
-      var viewYear = today.getFullYear();
-      var viewMonth = today.getMonth();
-      var selectedDateKey = null;
-      var selectedSlot = null;
+      function rnd(a, b) { return a + Math.random() * (b - a); }
 
-      function pad(n) { return n < 10 ? '0' + n : '' + n; }
-      function dateKey(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+      function burst(cx, cy, count) {
+        for (var i = 0; i < count; i++) {
+          var angle = rnd(0, Math.PI * 2);
+          var speed = rnd(2.5, 9);
+          particles.push({
+            x: cx, y: cy,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed - rnd(1, 5),
+            size: rnd(4, 10),
+            color: COLORS[Math.floor(Math.random() * COLORS.length)],
+            alpha: 1, rot: rnd(0, Math.PI * 2),
+            rotV: rnd(-0.18, 0.18), gravity: rnd(0.12, 0.28),
+            shape: Math.random() > 0.45 ? 'rect' : 'circle'
+          });
+        }
+      }
 
-      function getAvailableSlots(d) {
-        var key = dateKey(d);
-        if (AVAILABILITY.closedDates.indexOf(key) !== -1) return [];
-        if (AVAILABILITY.openDays.indexOf(d.getDay()) === -1) return [];
-
-        var now = new Date();
-        var noticeMs = AVAILABILITY.minNoticeHours * 3600 * 1000;
-
-        return AVAILABILITY.slots.filter(function (t) {
-          var parts = t.split(':');
-          var slotDate = new Date(d.getFullYear(), d.getMonth(), d.getDate(), parseInt(parts[0], 10), parseInt(parts[1], 10));
-          return slotDate.getTime() - now.getTime() >= noticeMs;
+      function tick() {
+        canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        var alive = false;
+        particles.forEach(function (p) {
+          if (p.alpha <= 0) return; alive = true;
+          p.vy += p.gravity; p.x += p.vx; p.y += p.vy;
+          p.vx *= 0.985; p.rot += p.rotV; p.alpha -= 0.013;
+          ctx.save(); ctx.globalAlpha = Math.max(0, p.alpha); ctx.fillStyle = p.color;
+          ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+          if (p.shape === 'rect') { ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2); }
+          else { ctx.beginPath(); ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2); ctx.fill(); }
+          ctx.restore();
         });
+        particles = particles.filter(function (p) { return p.alpha > 0; });
+        if (alive) { animId = requestAnimationFrame(tick); } else { animId = null; }
       }
 
-      function isInRange(d) {
-        return d >= today && d <= maxDate;
-      }
-
-      function formatDateLong(d) {
-        return WEEKDAYS_LONG[d.getDay()] + ' ' + d.getDate() + ' ' + MONTHS[d.getMonth()].toLowerCase() + ' ' + d.getFullYear();
-      }
-
-      function renderCalendar() {
-        calMonth.textContent = MONTHS[viewMonth] + ' ' + viewYear;
-        calGrid.innerHTML = '';
-
-        WEEKDAYS_SHORT.forEach(function (wd) {
-          var el = document.createElement('div');
-          el.className = 'cal-weekday';
-          el.textContent = wd;
-          calGrid.appendChild(el);
-        });
-
-        var firstOfMonth = new Date(viewYear, viewMonth, 1);
-        var startOffset = (firstOfMonth.getDay() + 6) % 7; // grid starts on Monday
-        var daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
-
-        for (var i = 0; i < startOffset; i++) {
-          var empty = document.createElement('div');
-          empty.className = 'cal-day is-empty';
-          calGrid.appendChild(empty);
-        }
-
-        var _loop = function (day) {
-          var d = new Date(viewYear, viewMonth, day);
-          var key = dateKey(d);
-          var btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = 'cal-day';
-          btn.textContent = day;
-
-          if (key === dateKey(today)) btn.classList.add('is-today');
-
-          var slots = isInRange(d) ? getAvailableSlots(d) : [];
-
-          if (slots.length > 0) {
-            btn.classList.add('is-available');
-            btn.addEventListener('click', function () { selectDate(key, d); });
-          } else {
-            btn.disabled = true;
-          }
-
-          if (key === selectedDateKey) btn.classList.add('is-selected');
-
-          calGrid.appendChild(btn);
-        };
-
-        for (var day = 1; day <= daysInMonth; day++) _loop(day);
-
-        calPrev.disabled = (viewYear === today.getFullYear() && viewMonth === today.getMonth());
-
-        var nextMonthStart = new Date(viewYear, viewMonth + 1, 1);
-        calNext.disabled = nextMonthStart > maxDate;
-      }
-
-      function selectDate(key, d) {
-        selectedDateKey = key;
-        selectedSlot = null;
-        formSection.hidden = true;
-        renderCalendar();
-        renderSlots(d);
-      }
-
-      function renderSlots(d) {
-        var slots = getAvailableSlots(d);
-        slotDateEl.innerHTML = '<span>' + formatDateLong(d) + '</span>';
-        slotGrid.innerHTML = '';
-
-        if (slots.length === 0) {
-          var empty = document.createElement('p');
-          empty.className = 'slot-empty';
-          empty.textContent = "Plus de créneau disponible ce jour-là.";
-          slotGrid.appendChild(empty);
-        } else {
-          slots.forEach(function (t) {
-            var btn = document.createElement('button');
-            btn.type = 'button';
-            btn.className = 'slot-btn';
-            btn.textContent = t;
-            btn.addEventListener('click', function () {
-              selectedSlot = t;
-              Array.prototype.forEach.call(slotGrid.children, function (c) { c.classList.remove('is-selected'); });
-              btn.classList.add('is-selected');
-              showForm(d, t);
-            });
-            slotGrid.appendChild(btn);
-          });
-        }
-
-        slotCard.hidden = false;
-      }
-
-      function showForm(d, t) {
-        summaryText.textContent = 'Appel de 30 min · ' + formatDateLong(d) + ' à ' + t;
-        formNote.classList.remove('is-visible');
-        formSection.hidden = false;
-        formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-
-      calPrev.addEventListener('click', function () {
-        viewMonth -= 1;
-        if (viewMonth < 0) { viewMonth = 11; viewYear -= 1; }
-        renderCalendar();
-      });
-
-      calNext.addEventListener('click', function () {
-        viewMonth += 1;
-        if (viewMonth > 11) { viewMonth = 0; viewYear += 1; }
-        renderCalendar();
-      });
-
-      /* ── Feux d'artifice ─────────────────────────────────── */
-      (function () {
-        var canvas = document.getElementById('confettiCanvas');
-        if (!canvas) return;
-        var ctx = canvas.getContext('2d');
-        var particles = [];
-        var animId = null;
-        var COLORS = ['#C07840', '#F0EBE0', '#C8C3B8', '#8A5730', '#F0EBE0', '#C07840'];
-
-        function rnd(a, b) { return a + Math.random() * (b - a); }
-
-        function burst(cx, cy, count) {
-          for (var i = 0; i < count; i++) {
-            var angle = rnd(0, Math.PI * 2);
-            var speed = rnd(2.5, 9);
-            particles.push({
-              x: cx, y: cy,
-              vx: Math.cos(angle) * speed,
-              vy: Math.sin(angle) * speed - rnd(1, 5),
-              size: rnd(4, 10),
-              color: COLORS[Math.floor(Math.random() * COLORS.length)],
-              alpha: 1,
-              rot: rnd(0, Math.PI * 2),
-              rotV: rnd(-0.18, 0.18),
-              gravity: rnd(0.12, 0.28),
-              shape: Math.random() > 0.45 ? 'rect' : 'circle'
-            });
-          }
-        }
-
-        function tick() {
-          canvas.width  = canvas.offsetWidth;
-          canvas.height = canvas.offsetHeight;
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          var alive = false;
-          for (var i = 0; i < particles.length; i++) {
-            var p = particles[i];
-            if (p.alpha <= 0) continue;
-            alive = true;
-            p.vy += p.gravity; p.x += p.vx; p.y += p.vy;
-            p.vx *= 0.985; p.rot += p.rotV; p.alpha -= 0.013;
-            ctx.save();
-            ctx.globalAlpha = Math.max(0, p.alpha);
-            ctx.fillStyle = p.color;
-            ctx.translate(p.x, p.y); ctx.rotate(p.rot);
-            if (p.shape === 'rect') { ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2); }
-            else { ctx.beginPath(); ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2); ctx.fill(); }
-            ctx.restore();
-          }
-          particles = particles.filter(function (p) { return p.alpha > 0; });
-          if (alive) { animId = requestAnimationFrame(tick); } else { animId = null; }
-        }
-
-        window._launchConfetti = function () {
-          particles = [];
-          if (animId) cancelAnimationFrame(animId);
-          canvas.width  = canvas.offsetWidth;
-          canvas.height = canvas.offsetHeight;
-          var cx = canvas.width / 2, cy = canvas.height * 0.32;
-          burst(cx, cy, 65);
-          setTimeout(function () { burst(cx - 90, cy + 30, 35); }, 180);
-          setTimeout(function () { burst(cx + 90, cy + 30, 35); }, 320);
-          setTimeout(function () { burst(cx, cy - 20, 25); }, 480);
-          tick();
-        };
-      })();
-
-      /* ── Progression vidéo ───────────────────────────────── */
-      function initVideoProgress() {
-        var video = document.getElementById('modalVideo');
-        if (video) {
-          video.addEventListener('timeupdate', function () {
-            if (video.duration) {
-              videoProgressBar.style.width = (video.currentTime / video.duration * 100) + '%';
-            }
-          });
-          video.addEventListener('ended', function () { videoProgressBar.style.width = '100%'; });
-        } else {
-          /* placeholder : animation CSS rapide-puis-lente */
-          videoProgressBar.classList.remove('is-demo');
-          void videoProgressBar.offsetWidth; /* force reflow */
-          videoProgressBar.classList.add('is-demo');
-        }
-      }
-
-      /* ── Ouverture / fermeture du modal ──────────────────── */
-      var _pendingWaUrl = '';
-      var _slotLabel   = '';
-
-      function openModal(waUrl, slotLabel) {
-        _pendingWaUrl = waUrl;
-        _slotLabel    = slotLabel;
-        modalSlotSummary.textContent = 'Appel de 30 min · ' + slotLabel;
-        confirmModal.classList.add('is-open');
-        document.body.style.overflow = 'hidden';
-        setTimeout(function () {
-          if (window._launchConfetti) window._launchConfetti();
-          initVideoProgress();
-        }, 120);
-      }
-
-      function closeModal() {
-        confirmModal.classList.remove('is-open');
-        document.body.style.overflow = '';
-        if (_slotLabel) {
-          successBannerSub.textContent = _slotLabel + ' · Je te confirme sous 24h sur WhatsApp.';
-          /* cacher tout le contenu de la section sauf la bannière */
-          var section = document.getElementById('formSection');
-          Array.prototype.forEach.call(section.children, function (el) {
-            if (el.id !== 'successBanner') el.hidden = true;
-          });
-          successBanner.hidden = false;
-        }
-      }
-
-      modalClose.addEventListener('click', closeModal);
-      confirmModal.addEventListener('click', function (e) {
-        if (e.target === confirmModal) closeModal();
-      });
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') closeModal();
-      });
-
-      bookingForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        if (!selectedDateKey || !selectedSlot) return;
-
-        var name = document.getElementById('bf-name').value.trim();
-        var phone = document.getElementById('bf-phone').value.trim();
-        var email = document.getElementById('bf-email').value.trim();
-        var message = document.getElementById('bf-message').value.trim();
-        if (!name || !phone || !email) return;
-
-        var parts = selectedDateKey.split('-');
-        var d = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
-        var when = formatDateLong(d) + ' à ' + selectedSlot;
-
-        var text = 'Bonjour Pierre, je souhaite réserver un appel de 30 minutes le ' + when + '.\n\n'
-          + 'Nom : ' + name + '\n'
-          + 'Téléphone : ' + phone
-          + (email ? '\nEmail : ' + email : '')
-          + (message ? '\nMessage : ' + message : '')
-          + '\n\nMerci de me confirmer ce créneau.';
-
-        var waUrl = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(text);
-        openModal(waUrl, formatDateLong(d) + ' à ' + selectedSlot);
-      });
-
-      renderCalendar();
+      window._launchConfetti = function () {
+        particles = []; if (animId) cancelAnimationFrame(animId);
+        canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight;
+        var cx = canvas.width / 2, cy = canvas.height * 0.32;
+        burst(cx, cy, 65);
+        setTimeout(function () { burst(cx - 90, cy + 30, 35); }, 180);
+        setTimeout(function () { burst(cx + 90, cy + 30, 35); }, 320);
+        setTimeout(function () { burst(cx, cy - 20, 25); }, 480);
+        tick();
+      };
     })();
+
+    /* ── Modal confirmation ───────────────────────────────── */
+    function initVideoProgress() {
+      var bar = document.getElementById('videoProgressBar');
+      if (!bar) return;
+      var video = document.getElementById('modalVideo');
+      if (video) {
+        video.addEventListener('timeupdate', function () {
+          if (video.duration) bar.style.width = (video.currentTime / video.duration * 100) + '%';
+        });
+        video.addEventListener('ended', function () { bar.style.width = '100%'; });
+      } else {
+        bar.classList.remove('is-demo'); void bar.offsetWidth; bar.classList.add('is-demo');
+      }
+    }
+
+    function openConfirmModal() {
+      var modal = document.getElementById('confirmModal');
+      if (!modal) return;
+      modal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      setTimeout(function () {
+        if (window._launchConfetti) window._launchConfetti();
+        initVideoProgress();
+      }, 120);
+    }
+
+    function closeConfirmModal() {
+      var modal = document.getElementById('confirmModal');
+      if (!modal) return;
+      modal.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('modalClose').addEventListener('click', closeConfirmModal);
+    document.getElementById('confirmModal').addEventListener('click', function (e) {
+      if (e.target === this) closeConfirmModal();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeConfirmModal();
+    });
   </script>
 </body>
 </html>
