@@ -565,6 +565,247 @@
       color: var(--copper);
     }
 
+    /* ─── Confirmation modal ───────────────────────────────── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(12, 12, 12, 0.88);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: var(--ink-2);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-md);
+      width: 100%;
+      max-width: 680px;
+      padding: 2rem 2rem 2.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      position: relative;
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .modal-overlay.is-open .modal-card {
+      transform: translateY(0) scale(1);
+    }
+
+    /* canvas de feux d'artifice — à l'intérieur de l'overlay, derrière la card */
+    .confetti-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    /* barre de progression vidéo */
+    .video-progress-wrap {
+      height: 3px;
+      background: rgba(240,235,224,0.08);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .video-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--copper);
+      border-radius: 2px;
+      transition: width 0.3s ease-out;
+    }
+
+    @keyframes fake-video-progress {
+      0%   { width: 0%;   }
+      12%  { width: 38%;  }
+      30%  { width: 54%;  }
+      55%  { width: 67%;  }
+      78%  { width: 79%;  }
+      100% { width: 100%; }
+    }
+
+    .video-progress-bar.is-demo {
+      animation: fake-video-progress 30s linear forwards;
+    }
+
+    /* bannière de succès (visible après fermeture du modal) */
+    .success-banner {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(143, 214, 172, 0.08);
+      border: 1px solid rgba(143, 214, 172, 0.25);
+      border-radius: var(--radius-md);
+      padding: 1.5rem 1.75rem;
+      animation: fadeUp 0.4s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0);    }
+    }
+
+    .success-banner-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(143, 214, 172, 0.14);
+      border: 1px solid rgba(143, 214, 172, 0.30);
+      color: #8FD6AC;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex: none;
+    }
+
+    .success-banner-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.02em;
+      margin-bottom: 4px;
+    }
+
+    .success-banner-sub {
+      font-size: 14px;
+      color: var(--cream-muted);
+      line-height: 1.6;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--rule);
+      background: none;
+      color: var(--cream-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      line-height: 1;
+      font-family: 'DM Sans', sans-serif;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .modal-close:hover { border-color: var(--copper); color: var(--copper); }
+
+    .modal-check {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(143, 214, 172, 0.12);
+      border: 1px solid rgba(143, 214, 172, 0.30);
+      color: #8FD6AC;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex: none;
+    }
+
+    .modal-title {
+      font-size: clamp(24px, 5vw, 32px);
+      margin-bottom: 0.4rem;
+    }
+
+    .modal-sub {
+      font-size: 14px;
+      color: var(--cream-muted);
+      line-height: 1.6;
+    }
+
+    .modal-video-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--ink-3);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-video-wrap video,
+    .modal-video-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border: none;
+    }
+
+    .modal-video-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      color: var(--cream-muted);
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-align: center;
+    }
+
+    .modal-video-placeholder svg {
+      width: 44px;
+      height: 44px;
+      opacity: 0.35;
+    }
+
+    .modal-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .modal-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--cream-dim);
+      line-height: 1.55;
+    }
+
+    .modal-step-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: var(--copper);
+      min-width: 20px;
+      padding-top: 2px;
+      flex: none;
+    }
+
+    @media (max-width: 480px) {
+      .modal-card { padding: 1.5rem 1rem 1.75rem; }
+      .modal-overlay { padding: 0.75rem; }
+    }
+
     /* ─── Footer / Colophon ────────────────────────────────── */
     footer {
       padding: 3rem 0 4rem;
@@ -700,17 +941,69 @@
           </div>
         </div>
         <div class="form-field">
-          <label for="bf-email">Email <span style="text-transform: none; letter-spacing: 0;">(optionnel)</span></label>
-          <input type="email" id="bf-email" name="email" />
+          <label for="bf-email">Email</label>
+          <input type="email" id="bf-email" name="email" required />
         </div>
         <div class="form-field">
           <label for="bf-message">Message <span style="text-transform: none; letter-spacing: 0;">(optionnel)</span></label>
           <textarea id="bf-message" name="message" placeholder="Dis-moi en quelques mots où tu en es et ce que tu cherches."></textarea>
         </div>
         <button type="submit" class="btn-main">Confirmer ma demande →</button>
-        <p class="form-note" id="formNote">WhatsApp va s'ouvrir avec ta demande pré-remplie. Envoie le message et je te confirme le créneau sous 24h.</p>
+        <p class="form-note" id="formNote"></p>
       </form>
+
+      <!-- Bannière succès — visible après fermeture du modal -->
+      <div id="successBanner" hidden>
+        <div class="success-banner">
+          <div class="success-banner-icon">✓</div>
+          <div>
+            <div class="success-banner-title">Appel réservé<span class="dot">.</span></div>
+            <p class="success-banner-sub" id="successBannerSub">Je te confirme le créneau sous 24h sur WhatsApp.</p>
+          </div>
+        </div>
+      </div>
     </section>
+
+    <!-- ─── MODAL CONFIRMATION ─────────────────────────────── -->
+    <div class="modal-overlay" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+
+      <!-- Canvas feux d'artifice (derrière la card, dans l'overlay) -->
+      <canvas class="confetti-canvas" id="confettiCanvas"></canvas>
+
+      <div class="modal-card">
+        <button class="modal-close" id="modalClose" aria-label="Fermer">×</button>
+
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div class="modal-check">✓</div>
+          <div>
+            <h2 class="modal-title" id="modalTitle">Appel réservé<span class="dot">.</span></h2>
+            <p class="modal-sub" id="modalSlotSummary"></p>
+          </div>
+        </div>
+
+        <!-- ─ Bloc vidéo ─────────────────────────────────────────
+             POUR AJOUTER TA VIDÉO :
+             Option 1 – fichier local :
+               <video id="modalVideo" src="assets/ma-video.mp4" controls playsinline></video>
+             Option 2 – YouTube :
+               <iframe src="https://www.youtube.com/embed/TON_ID" allowfullscreen></iframe>
+             ──────────────────────────────────────────────────── -->
+        <div class="modal-video-wrap">
+          <div class="modal-video-placeholder" id="modalVideoPlaceholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+            <span>Vidéo de bienvenue à venir</span>
+          </div>
+        </div>
+
+        <!-- Barre de progression vidéo -->
+        <div class="video-progress-wrap">
+          <div class="video-progress-bar" id="videoProgressBar"></div>
+        </div>
+
+      </div>
+    </div>
 
     <!-- ─── FOOTER / COLOPHON ──────────────────────────────── -->
     <footer>
@@ -736,7 +1029,7 @@
         </div>
       </div>
       <div class="final-line">
-        <div>EDGED · Formation closing</div>
+        <div>EDGED · Accompagnement closing</div>
         <div>Pierre Boucaud · 2026</div>
       </div>
     </footer>
@@ -818,6 +1111,12 @@
       var summaryText = document.getElementById('summaryText');
       var bookingForm = document.getElementById('bookingForm');
       var formNote = document.getElementById('formNote');
+      var confirmModal = document.getElementById('confirmModal');
+      var modalClose = document.getElementById('modalClose');
+      var modalSlotSummary = document.getElementById('modalSlotSummary');
+      var successBanner = document.getElementById('successBanner');
+      var successBannerSub = document.getElementById('successBannerSub');
+      var videoProgressBar = document.getElementById('videoProgressBar');
 
       if (!calGrid) return;
 
@@ -967,6 +1266,129 @@
         renderCalendar();
       });
 
+      /* ── Feux d'artifice ─────────────────────────────────── */
+      (function () {
+        var canvas = document.getElementById('confettiCanvas');
+        if (!canvas) return;
+        var ctx = canvas.getContext('2d');
+        var particles = [];
+        var animId = null;
+        var COLORS = ['#C07840', '#F0EBE0', '#C8C3B8', '#8A5730', '#F0EBE0', '#C07840'];
+
+        function rnd(a, b) { return a + Math.random() * (b - a); }
+
+        function burst(cx, cy, count) {
+          for (var i = 0; i < count; i++) {
+            var angle = rnd(0, Math.PI * 2);
+            var speed = rnd(2.5, 9);
+            particles.push({
+              x: cx, y: cy,
+              vx: Math.cos(angle) * speed,
+              vy: Math.sin(angle) * speed - rnd(1, 5),
+              size: rnd(4, 10),
+              color: COLORS[Math.floor(Math.random() * COLORS.length)],
+              alpha: 1,
+              rot: rnd(0, Math.PI * 2),
+              rotV: rnd(-0.18, 0.18),
+              gravity: rnd(0.12, 0.28),
+              shape: Math.random() > 0.45 ? 'rect' : 'circle'
+            });
+          }
+        }
+
+        function tick() {
+          canvas.width  = canvas.offsetWidth;
+          canvas.height = canvas.offsetHeight;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          var alive = false;
+          for (var i = 0; i < particles.length; i++) {
+            var p = particles[i];
+            if (p.alpha <= 0) continue;
+            alive = true;
+            p.vy += p.gravity; p.x += p.vx; p.y += p.vy;
+            p.vx *= 0.985; p.rot += p.rotV; p.alpha -= 0.013;
+            ctx.save();
+            ctx.globalAlpha = Math.max(0, p.alpha);
+            ctx.fillStyle = p.color;
+            ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+            if (p.shape === 'rect') { ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2); }
+            else { ctx.beginPath(); ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2); ctx.fill(); }
+            ctx.restore();
+          }
+          particles = particles.filter(function (p) { return p.alpha > 0; });
+          if (alive) { animId = requestAnimationFrame(tick); } else { animId = null; }
+        }
+
+        window._launchConfetti = function () {
+          particles = [];
+          if (animId) cancelAnimationFrame(animId);
+          canvas.width  = canvas.offsetWidth;
+          canvas.height = canvas.offsetHeight;
+          var cx = canvas.width / 2, cy = canvas.height * 0.32;
+          burst(cx, cy, 65);
+          setTimeout(function () { burst(cx - 90, cy + 30, 35); }, 180);
+          setTimeout(function () { burst(cx + 90, cy + 30, 35); }, 320);
+          setTimeout(function () { burst(cx, cy - 20, 25); }, 480);
+          tick();
+        };
+      })();
+
+      /* ── Progression vidéo ───────────────────────────────── */
+      function initVideoProgress() {
+        var video = document.getElementById('modalVideo');
+        if (video) {
+          video.addEventListener('timeupdate', function () {
+            if (video.duration) {
+              videoProgressBar.style.width = (video.currentTime / video.duration * 100) + '%';
+            }
+          });
+          video.addEventListener('ended', function () { videoProgressBar.style.width = '100%'; });
+        } else {
+          /* placeholder : animation CSS rapide-puis-lente */
+          videoProgressBar.classList.remove('is-demo');
+          void videoProgressBar.offsetWidth; /* force reflow */
+          videoProgressBar.classList.add('is-demo');
+        }
+      }
+
+      /* ── Ouverture / fermeture du modal ──────────────────── */
+      var _pendingWaUrl = '';
+      var _slotLabel   = '';
+
+      function openModal(waUrl, slotLabel) {
+        _pendingWaUrl = waUrl;
+        _slotLabel    = slotLabel;
+        modalSlotSummary.textContent = 'Appel de 30 min · ' + slotLabel;
+        confirmModal.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+        setTimeout(function () {
+          if (window._launchConfetti) window._launchConfetti();
+          initVideoProgress();
+        }, 120);
+      }
+
+      function closeModal() {
+        confirmModal.classList.remove('is-open');
+        document.body.style.overflow = '';
+        if (_slotLabel) {
+          successBannerSub.textContent = _slotLabel + ' · Je te confirme sous 24h sur WhatsApp.';
+          /* cacher tout le contenu de la section sauf la bannière */
+          var section = document.getElementById('formSection');
+          Array.prototype.forEach.call(section.children, function (el) {
+            if (el.id !== 'successBanner') el.hidden = true;
+          });
+          successBanner.hidden = false;
+        }
+      }
+
+      modalClose.addEventListener('click', closeModal);
+      confirmModal.addEventListener('click', function (e) {
+        if (e.target === confirmModal) closeModal();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeModal();
+      });
+
       bookingForm.addEventListener('submit', function (e) {
         e.preventDefault();
         if (!selectedDateKey || !selectedSlot) return;
@@ -975,7 +1397,7 @@
         var phone = document.getElementById('bf-phone').value.trim();
         var email = document.getElementById('bf-email').value.trim();
         var message = document.getElementById('bf-message').value.trim();
-        if (!name || !phone) return;
+        if (!name || !phone || !email) return;
 
         var parts = selectedDateKey.split('-');
         var d = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
@@ -989,9 +1411,7 @@
           + '\n\nMerci de me confirmer ce créneau.';
 
         var waUrl = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(text);
-
-        window.open(waUrl, '_blank');
-        formNote.classList.add('is-visible');
+        openModal(waUrl, formatDateLong(d) + ' à ' + selectedSlot);
       });
 
       renderCalendar();
